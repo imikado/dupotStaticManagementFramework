@@ -60,6 +60,9 @@ class Application
             $classObj = new $class;
             $classObj->setRequest($this->request);
             $classObj->setResponse($this->response);
+            $classObj->setConfigManager($this->configManager);
+
+            $classObj->before();
 
             return call_user_func_array(array($classObj, $method), $argsList);
         }

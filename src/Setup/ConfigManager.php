@@ -17,6 +17,11 @@ class ConfigManager
         }
     }
 
+    public function setSectionParam(string $section, string $param, $value)
+    {
+        $this->configList[$section][$param] = $value;
+    }
+
     public function getSectionParam(string $section, string $param)
     {
         if (!isset($this->configList[$section][$param])) {

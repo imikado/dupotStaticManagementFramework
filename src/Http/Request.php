@@ -50,6 +50,13 @@ class Request
         }
         return $this->paramList[$source][$param];
     }
+    protected function setSourceParam($source, $param, $value)
+    {
+        $this->paramList[$source][$param] = $value;
+        if ($source === self::SOURCE_SESSION) {
+            $_SESSION[$param] = $value;
+        }
+    }
 
     public function getPostParamList(): array
     {
@@ -59,9 +66,21 @@ class Request
     {
         return $this->getSourceParam(self::SOURCE_POST, $param);
     }
-    public function getPostParamOr(string $param)
+    public function getPostParamOr(string $param, $default = null)
     {
-        return $this->getSourceParamOr(self::SOURCE_POST, $param);
+        return $this->getSourceParamOr(self::SOURCE_POST, $param, $default);
+    }
+    public function getSessionParam(string $param)
+    {
+        return $this->getSourceParam(self::SOURCE_SESSION, $param);
+    }
+    public function getSessionParamOr(string $param, $default = null)
+    {
+        return $this->getSourceParamOr(self::SOURCE_SESSION, $param, $default);
+    }
+    public function setSessionParam(string $param, $value)
+    {
+        $this->setSourceParam(self::SOURCE_SESSION, $param, $value);
     }
 
     public function getGetParamList(): array
@@ -72,6 +91,8 @@ class Request
     {
         return $this->getSourceParamList(self::SOURCE_SERVER);
     }
+
+
 
     public function getUrl()
     {

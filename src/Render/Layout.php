@@ -13,6 +13,11 @@ class Layout
         $this->contextList = $contextList;
     }
 
+    public function setLayoutPath(string $layoutPath)
+    {
+        $this->layoutPath = $layoutPath;
+    }
+
     public function assignContext(string $param, $value)
     {
         $this->contextList[$param] = $value;
